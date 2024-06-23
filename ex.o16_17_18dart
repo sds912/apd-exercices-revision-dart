@@ -1,0 +1,42 @@
+import 'dart:async';
+
+class DataFetcher {
+  // 16. Concepts d'asynchronicité en Dart
+  static Future<String> fetchDataV1() {
+    return Future.delayed(Duration(seconds: 2), () {
+      return "Données reçues (Version 1)";
+    });
+  }
+
+  // 17. Utilisation de async et await
+  static Future<String> fetchDataV2() async {
+    await Future.delayed(Duration(seconds: 2));
+    return "Données reçues (Version 2)";
+  }
+}
+
+class DataStreamer {
+  // 18. Gestion des Futures et des Streams
+  static void listenDataStream() {
+    Stream<int> stream =
+        Stream.periodic(Duration(seconds: 1), (num) => num);
+    stream.listen((data) {
+      print("Donnée du Stream : $data");
+    });
+  }
+}
+
+void main() {
+  // Appel de la version 1 de fetchData
+  DataFetcher.fetchDataV1().then((result) {
+    print("Résultat de la version 1 : $result");
+  });
+
+  // Appel de la version 2 de fetchData
+  DataFetcher.fetchDataV2().then((result) {
+    print("Résultat de la version 2 : $result");
+  });
+
+  // Écoute du Stream de données
+  DataStreamer.listenDataStream();
+}
